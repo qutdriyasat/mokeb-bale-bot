@@ -6,7 +6,7 @@ from database import get_db
 from states import *
 
 app = Flask(__name__)
-
+print("BOT STARTED")
 
 def send(chat_id, text):
     try:
