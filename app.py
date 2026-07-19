@@ -2,7 +2,7 @@ from flask import Flask, request
 import requests
 
 from config import BASE_URL
-from database import get_db
+from database import get_db, get_all
 from states import *
 
 app = Flask(__name__)
@@ -167,6 +167,45 @@ def webhook():
 
 
     return "ok"
+
+@app.route("/admin")
+def admin():
+
+    rows = get_all()
+
+    html = "<h2>ثبت نام موکب</h2>"
+
+    html += f"<p>تعداد: {len(rows)}</p>"
+
+    html += """
+    <table border="1">
+    <tr>
+    <th>نام</th>
+    <th>موبایل</th>
+    <th>کد ملی</th>
+    <th>گذرنامه</th>
+    <th>جنسیت</th>
+    <th>تاریخ</th>
+    </tr>
+    """
+
+    for r in rows:
+
+        html += f"""
+        <tr>
+        <td>{r['full_name']}</td>
+        <td>{r['mobile']}</td>
+        <td>{r['national_id']}</td>
+        <td>{r['passport']}</td>
+        <td>{r['gender']}</td>
+        <td>{r['arrival_date']}</td>
+        </tr>
+        """
+
+    html += "</table>"
+
+    return html
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
