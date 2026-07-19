@@ -1,0 +1,8 @@
+users = {}
+
+NAME = 1
+MOBILE = 2
+NATIONAL = 3
+PASSPORT = 4
+GENDER = 5
+DATE = 6
